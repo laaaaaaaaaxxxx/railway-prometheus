@@ -1,18 +1,16 @@
 global:
-  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+  scrape_interval: 15s # 默认每15秒抓取一次目标。
 
-  # Attach these labels to any time series or alerts when communicating with
-  # external systems (federation, remote storage, Alertmanager).
+  # 在与外部系统（如联邦、远程存储、Alertmanager）通信时，为每个时序数据或告警附加这些标签。
   external_labels:
     monitor: 'railway-prom'
 
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
+# 抓取配置：包含一个端点，抓取Prometheus自身。
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  # job_name作为标签`job=<job_name>`添加到抓取的所有时序数据中。
   - job_name: 'prometheus'
 
-    # Override the global default and scrape targets from this job every 5 seconds.
+    # 覆盖全局默认值，此job每5秒抓取一次目标。
     scrape_interval: 5s
 
     static_configs:
@@ -22,6 +20,11 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['demo.do.prometheus.io:9090']
+
+  - job_name: 'whale_pushgateway'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['163.61.102.47:30091']
 
   # - job_name: 'postgres'
   #   scrape_interval: 5s
